@@ -1,7 +1,7 @@
 #include <localization/Localizer.h>
 
 Localizer::Localizer(StorageDevice* storage_dev, const char* locale)
-    : storage_dev(storage_dev)
+    : map(storage_dev), storage_dev(storage_dev)
 {
     SetLocale(locale);
 }
@@ -40,12 +40,5 @@ UniqueArray<char> Localizer::LoadLocalizedText(const char* key)
         OpenLocalizationFile();
     }
 
-    storage_dev->SeekStart();
-    int64_t pos = storage_dev->FindNextString(key);
-    storage_dev->SeekStep(pos + strlen(key) + 1); // Moves past the key and the equals sign
-
-    UniqueArray<char> line;
-    storage_dev->ReadLine(line, false); // read remaining line
-
-    return std::move(line);
+    return map.GetValue(key);
 }

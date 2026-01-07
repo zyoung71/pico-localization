@@ -1,18 +1,18 @@
 #pragma once
 
-#include <storage/StorageDevice.h>
+#include <storage/FileContentsMap.h>
 
 #include <cstring>
 
 class Localizer
 {
 private:
+    FileContentsMap map;
     StorageDevice* storage_dev;
+    
     char locale[6];
 
     bool is_localization_file_open = false;
-
-    DirectoryEntry localization_directory;
 
 public:
     Localizer(StorageDevice* storage_dev, const char* locale = "en_us");

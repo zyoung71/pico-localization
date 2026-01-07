@@ -1,0 +1,3 @@
+[submodule "lib/pico-storage-device"]
+	path = lib/pico-storage-device
+	url = https://github.com/zyoung71/pico-storage-device
